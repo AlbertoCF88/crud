@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Alberto</title>
+    <link rel="icon" type="image/png" href="img/usuario.png" />
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <script defer src="js.js"></script>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <div id="decorativo container-fluid" class="bg-warning bg-gradient mb-5" style="height: 60px;"> </div>
+    <div class="container">
+        <section id="formulario">
+            <div class="row justify-content-center ">
+                <div class="col-12 col-md  order-1 order-md-0">
+                    <div id="campos">
+                        <div id="campo-nombre" class="form-floating mb-3">
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre">
+                            <label for="nombre" class="text-warning">Nombre:</label>
+                        </div>
+
+                        <div id="campo-apellidos" class="form-floating mb-3">
+                            <input type="text" class="form-control" name="apellidos" id="apellidos"
+                                placeholder="Apellidos">
+                            <label for="apellidos" class="text-warning">Apellidos:</label>
+                        </div>
+
+                        <article id="campo-cominudades">
+
+                            <nav class="navbar  mb-3 form-control cajaPoblacion">
+                                <div class="d-flex">
+                                    <p class="text-warning">Poblacion:</p>
+                                    <p id="salidaEditar"></p>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class=" dropend">
+                                                <div class="botonera">
+                                                    <button class="btn btn-link btnArriba p-0" onclick="arriba()">
+                                                        <i class="bi bi-arrow-up-square"></i>
+                                                    </button>
+                                                    <div class="d-flex">
+                                                        <div id="comunidades">
+                                                            <button type="button"
+                                                                class="btn btn-secondary dropdown-toggle btnComunidad"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Galicia
+                                                            </button>
+                                                            <ul class="dropdown-menu text-center  ">
+                                                                <li class="dropdown-item text-white"
+                                                                    onclick="recogePoblacion(this)">Lugo</li>
+                                                                <li class="dropdown-item text-white"
+                                                                    onclick="recogePoblacion(this)">Ourense</li>
+                                                                <li class="dropdown-item text-white"
+                                                                    onclick="recogePoblacion(this)">la Coruña</li>
+                                                                <li class="dropdown-item text-white"
+                                                                    onclick="recogePoblacion(this)">Pontevedra</li>
+                                                            </ul>
+                                                        </div>
+                                                        <input type="text" onkeyup="bloquearInput(this)"
+                                                            class="form-control text-center " name="poblacion"
+                                                            id="poblacion">
+                                                    </div>
+                                                    <button class="btn btn-link btnAbajo p-0" onclick="abajo()">
+                                                        <i class="bi bi-arrow-down-square"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </article>
+
+                        <div id="campo-anio" class="form-floating mb-3">
+                            <input type="number" class="form-control" name="anio" id="anio" min="1900"
+                                placeholder="Año nacimento">
+                            <label for="anio" class="text-warning">Año nacimento:</label>
+                        </div>
+
+                        <div id="botonera" class="form-floating mb-3 ">
+                            <div id="añadir">
+                                <button class="btn btn-outline-warning" onclick="addUser()">
+                                    Añadir
+                                </button>
+                            </div>
+
+                            <div class="d-none" id="aceptarEditar">
+                                <button class="btn btn-outline-success" id="btnEditar">
+                                    Aceptar Cambios
+                                </button>
+                                <button class="btn btn-secondary" onclick="cancelarEditar()">
+                                    cancelar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md order-2 order-md-1 d-flex justify-content-center d-flex">
+                    <img src="img/usuarioGrande.png" class="img-fluid" alt="user">
+                </div>
+            </div>
+            <div>
+                <small class="text-muted text-center ">
+                    Listado controlado mediante JavaScript
+                </small>
+            </div>
+        </section>
+
+        <section id="filtro">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="filtroInput">Rango de edades</label>
+                <input type="number" class="form-control" id="filtroInput" name="filtroInput" placeholder="Edad"
+                    min="0">
+                <input type="number" class="form-control" id="filtroInput2" name="filtroInput2" placeholder="Edad"
+                    min="0">
+                <button class="btn btn-outline-primary w-100" onclick="filtroEdad(this)">Buscar</button>
+            </div>
+
+            <div id="listaFiltrada" style="display: none;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Nombre</th>
+                                <th scope="col" class="text-center">Apellidos</th>
+                                <th scope="col" class="text-center">Poblacion</th>
+                                <th scope="col" class="text-center">Nacimento</th>
+                                <th scope="col" class="text-center">Edad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trFiltro">
+                            <div class="text-center text-danger">
+                                <p>Usuarios encontrados: <span id="encontrados"></span></p>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="listado">
+            <div class="table-responsive mb-3">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">
+                                <button class="btn btn-outline-light d-flex" onclick="ordenarIcono(this, 'nombre')">
+                                    Nombre <i id="icoNombre" class="bi bi-arrow-down-up text-danger px-2"></i>
+                                </button>
+                            </th>
+                            <th scope="col" class="text-center">
+                                <button class="btn btn-outline-light d-flex" onclick="ordenarIcono(this,'apellidos')">
+                                    Apellidos <i class="bi bi-arrow-down-up text-danger  px-2"></i>
+                                </button>
+                            </th>
+                            <th scope="col" class="text-center">
+                                <button class="btn btn-outline-light d-flex" onclick="ordenarIcono(this, 'poblacion')">
+                                    Población <i class="bi bi-arrow-down-up text-danger  px-2"></i>
+                                </button>
+                            </th>
+                            <th scope="col" class="text-center">
+                                <button class="btn btn-outline-light d-flex" onclick="ordenarIcono(this,'nacimiento')">
+                                    Nacimento <i class="bi bi-arrow-down-up text-danger  px-2"></i>
+                                </button>
+                            </th>
+                            <th scope="col" class="text-center">
+                                <button class="btn btn-outline-light d-flex" onclick="ordenarIcono(this,'edad')">
+                                    Edad <i class="bi bi-arrow-down-up text-danger  px-2"></i>
+                                </button>
+                            </th>
+                            <th scope="col" class="text-center">
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="ingresarUser">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!---alertas-->
+        <div id="alertas">
+
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger bg-gradient text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estas seguro de querer eliminar este usuario?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            id="btnCancelar">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

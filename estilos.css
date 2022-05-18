@@ -1,0 +1,118 @@
+:root {
+    --bs-gradient: linear-gradient(180deg, rgb(255 255 255 / 63%), rgb(185 95 2 / 76%));
+}
+
+/*mod bootrap*/
+
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow  : 0 0 0 0.25rem rgba(253, 229, 13, 0.25);
+}
+
+.alert {
+    margin-bottom: 0;
+    width        : 50%;
+    margin       : 0 auto;
+}
+
+div.mod.modal-content {
+    background-color: transparent;
+    border          : 0px solid;
+}
+
+.dropend .dropdown-menu[data-bs-popper] {
+    top: -8px !important;
+    left: 80px !important;
+    z-index: 99999 !important;
+    border: 5px solid rgb(130 138 145);
+    background: #6c757dad;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+    width   : 200px;
+}
+
+.navbar {
+    display: block;
+}
+
+.dropdown-item {
+    cursor    : pointer;
+    transition: all 0.5s;
+}
+
+.dropdown-item:hover {
+    color      : #cd640a !IMPORTANT;
+    font-weight: 900;
+}
+
+.table-dark {
+    --bs-table-hover-bg: #a6b6183d;
+}
+
+/*///mis clases //*/
+.botonera {
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-start;
+}
+
+.btnComunidad {
+    border-top-right-radius   : 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+    border-radius             : 0;
+}
+
+.btnArriba {
+    border-top-right-radius: 5px !important;
+    border-top-left-radius : 5px !important;
+    border-radius          : 0;
+}
+
+.btnAbajo {
+    border-bottom-left-radius : 5px !important;
+    border-bottom-right-radius: 5px !important;
+    border-radius             : 0;
+}
+
+.cajaPoblacion:hover,
+.cajaPoblacion:focus,
+.cajaPoblacion:active {
+    border-color: #ffc107;
+    box-shadow  : 0 0 0 0.25rem rgb(253 229 13 / 25%);
+}
+
+.bi-arrow-up-square::before {
+    content       : "\f147";
+    font-size     : 36px;
+    vertical-align: -6px;
+    color         : var(--bs-secondary);
+}
+
+.bi-arrow-down-square::before {
+    content       : "\f126";
+    font-size     : 36px;
+    vertical-align: -6px;
+    color         : var(--bs-secondary);
+}
+
+/*aniamcion eliminar*/
+@keyframes flash {
+
+    from,
+    50%,
+    to {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+/*tr*/
+.flash {
+    animation: flash 1s infinite;
+}
